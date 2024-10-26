@@ -15,9 +15,9 @@ func (ProfileResponseStatistics) TableName() string {
 }
 
 type LeaderBoardStatistics struct {
-	Place int `json:"place"`
-	FIO   int `json:"fio"`
-	Score int `json:"score"`
+	Place int    `json:"place"`
+	FIO   string `json:"fio"`
+	Score int    `json:"score"`
 }
 
 type StatisticsRepositoryInterface interface {

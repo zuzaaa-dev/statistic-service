@@ -15,6 +15,48 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/get-leaderboard/{period}/{count}": {
+            "get": {
+                "description": "Возвращает список топ-N самых активных участников за последние X дней, отсортированный по количеству завершенных задач.",
+                "tags": [
+                    "statistics"
+                ],
+                "summary": "Получить топ активных участников за указанный период",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Период в днях для определения активности (например, 7 для последней недели)",
+                        "name": "period",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Количество записей в списке топа (например, 10 для топ-10)",
+                        "name": "count",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Список участников с их местом, ФИО и количеством завершенных задач",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/handlers.LeaderBoardStatistics"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Описание ошибки в случае некорректного запроса",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/getStatistic/user/{user_id}": {
             "get": {
                 "description": "Возвращает статистику задач для пользователя: завершенные и находящиеся в процессе задачи для каждой даты",
@@ -57,6 +99,20 @@ const docTemplate = `{
             "properties": {
                 "message": {
                     "type": "string"
+                }
+            }
+        },
+        "handlers.LeaderBoardStatistics": {
+            "type": "object",
+            "properties": {
+                "fio": {
+                    "type": "string"
+                },
+                "place": {
+                    "type": "integer"
+                },
+                "score": {
+                    "type": "integer"
                 }
             }
         },
