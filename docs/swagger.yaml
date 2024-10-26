@@ -1,0 +1,46 @@
+definitions:
+  handlers.ErrorResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  handlers.ProfileResponseStatisticsDoc:
+    properties:
+      date:
+        example: "2024-10-26T00:00:00Z"
+        type: string
+      in_progress_count:
+        example: 3
+        type: integer
+      success_count:
+        example: 5
+        type: integer
+    type: object
+info:
+  contact: {}
+paths:
+  /getStatistic/user/{user_id}:
+    get:
+      description: 'Возвращает статистику задач для пользователя: завершенные и находящиеся
+        в процессе задачи для каждой даты'
+      parameters:
+      - description: User ID
+        in: path
+        name: user_id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/handlers.ProfileResponseStatisticsDoc'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.ErrorResponse'
+      summary: Получить статистику пользователя по его ID
+      tags:
+      - statistics
+swagger: "2.0"

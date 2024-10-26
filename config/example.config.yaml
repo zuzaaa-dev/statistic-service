@@ -1,0 +1,8 @@
+env: "local"
+databaseHost: "localhost"
+databasePort: 5432
+databaseUser: "postgres"
+databaseName: "Ogetto"
+databasePassword: "1"
+databaseSSLMode: "disable"
+secretKey: "django-insecure-d=a2pod6zatg32i@lh0gmhcjjo1wr71$&c@6hl-co3%nqpgs$)"

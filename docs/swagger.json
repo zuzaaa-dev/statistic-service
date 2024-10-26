@@ -1,0 +1,70 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/getStatistic/user/{user_id}": {
+            "get": {
+                "description": "Возвращает статистику задач для пользователя: завершенные и находящиеся в процессе задачи для каждой даты",
+                "tags": [
+                    "statistics"
+                ],
+                "summary": "Получить статистику пользователя по его ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/handlers.ProfileResponseStatisticsDoc"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "handlers.ErrorResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "handlers.ProfileResponseStatisticsDoc": {
+            "type": "object",
+            "properties": {
+                "date": {
+                    "type": "string",
+                    "example": "2024-10-26T00:00:00Z"
+                },
+                "in_progress_count": {
+                    "type": "integer",
+                    "example": 3
+                },
+                "success_count": {
+                    "type": "integer",
+                    "example": 5
+                }
+            }
+        }
+    }
+}
