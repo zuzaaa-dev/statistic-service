@@ -90,6 +90,7 @@ func (h *HTTPServer) Run() {
 	statistics := api.Group("/")
 	{
 		statistics.GET("/getStatistic/user/:user_id", h.challengesHandlers.GetByUserId)
+		statistics.GET("/get-leaderboard/:period/:count", h.challengesHandlers.GetLeaderBoard)
 	}
 	docs.SwaggerInfo.BasePath = "/"
 	api.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
